@@ -1,4 +1,7 @@
 secretfile filter=git-crypt diff=git-crypt
 *.key filter=git-crypt diff=git-crypt
 packages/ui/** filter=git-crypt diff=git-crypt
+packages/ui/package.json !filter !diff
 packages/landing/** filter=git-crypt diff=git-crypt
+packages/landing/package.json !filter !diff
+.gitattributes !filter !diff
