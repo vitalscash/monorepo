@@ -24,6 +24,8 @@ jobs:
         run: yarn workspaces focus indexer
       - name: Install extension dependencies
         run: yarn workspaces focus @vitals/extension-react
+      - name: Install utils dependencies
+        run: yarn workspaces focus @vitals/utils
       - name: Build project
         run: yarn run ci:build
         env:
