@@ -44,3 +44,4 @@ dist-ssr
 postgres-data
 .ponder
 .env
+key
