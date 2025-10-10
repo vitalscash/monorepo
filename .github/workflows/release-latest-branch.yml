@@ -19,9 +19,9 @@ jobs:
           cache: yarn
           node-version: '22.12.x'
       - name: Install dependencies
-        run: yarn
+        run: yarn workspace @vitals/utils install && yarn workspace @vitals/extension-react install && yarn workspace indexer install
       - name: Build project
-        run: yarn run build
+        run: yarn run ci:build
         env:
           PUBLIC_NODE_ENV: 'production'
           PUBLIC_IMAGE_ROOT: 'https://gib.show'

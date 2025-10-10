@@ -4,7 +4,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "build": "yarn run pkgs:build && yarn workspace indexer run codegen && yarn workspace landing run build && yarn workspace ui run build",
+    "build": "yarn run ci:build && yarn workspace landing run build && yarn workspace ui run build",
+    "ci:build": "yarn run pkgs:build && yarn workspace indexer run codegen",
     "docker:build": "docker compose build",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
