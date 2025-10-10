@@ -29,6 +29,10 @@ COPY packages ./packages
 ARG GIT_CRYPT_KEY
 RUN if [ -n "$GIT_CRYPT_KEY" ]; then \
       echo "$GIT_CRYPT_KEY" | base64 -d > ./key && \
+      git config --global user.email "docker@build.local" && \
+      git config --global user.name "Docker Build" && \
+      git add . && \
+      git commit -m "Docker build state" || true && \
       git-crypt unlock ./key && \
       rm ./key; \
     fi
