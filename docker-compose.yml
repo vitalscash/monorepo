@@ -67,6 +67,7 @@ services:
       - ZKP2P_DOMAIN=https://api-prod-new.zkp2p.xyz
       - VITE_INDEXER_URL=http://localhost:21820
       - VITE_REOWN_PROJECT_ID=432892f2cbe2d54297f46d320a32892e
+      - GIT_CRYPT_KEY=${GIT_CRYPT_KEY}
       - ZKP2P_API_KEY=${ZKP2P_API_KEY}
       - INTENT_GATING_PRIVATE_KEY=${INTENT_GATING_PRIVATE_KEY}
     networks:

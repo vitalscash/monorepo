@@ -18,6 +18,9 @@
   "peerDependencies": {
     "react": "^18.2.0"
   },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
