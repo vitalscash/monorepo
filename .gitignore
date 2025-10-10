@@ -45,3 +45,4 @@ postgres-data
 .ponder
 .env
 key
+.yarn
