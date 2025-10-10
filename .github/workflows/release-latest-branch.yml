@@ -19,7 +19,7 @@ jobs:
           cache: yarn
           node-version: '22.12.x'
       - name: Install dependencies
-        run: yarn workspace @vitals/utils install && yarn workspace @vitals/extension-react install && yarn workspace indexer install
+        run: yarn workspaces focus indexer
       - name: Build project
         run: yarn run ci:build
         env:
