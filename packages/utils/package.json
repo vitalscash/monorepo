@@ -34,6 +34,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "peerDependencies": {
+    "viem": "^2.0.0"
+  },
   "devDependencies": {
     "tsx": "^4.20.3",
     "typescript": "^5.9.2"
