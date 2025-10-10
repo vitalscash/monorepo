@@ -8,7 +8,7 @@ services:
     shm_size: 16g
     command: postgres -c 'max_connections=500' -c work_mem=256MB -c maintenance_work_mem=256MB -c max_wal_size=1GB
     ports:
-      - 42070:5432
+      - 21821:5432
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     networks:
@@ -17,6 +17,12 @@ services:
       - POSTGRES_DB=vitals
       - POSTGRES_USER=vitals
       - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vitals -d vitals"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   indexer:
     container_name: vitals-indexer
@@ -26,7 +32,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - 13072:42069
+      - 21820:42069
     volumes:
       - ./packages:/app/packages
       - ./package.json:/app/package.json
@@ -37,14 +43,13 @@ services:
     depends_on:
       - postgres
     environment:
-      - PORT=42069
       - PONDER_RPC_URL_8453=${PONDER_RPC_URL_8453:-https://mainnet.base.org}
       - PONDER_RPC_URL_369=${PONDER_RPC_URL_369:-https://rpc.pulsechain.com}
       - DATABASE_URL=postgres://vitals:password@postgres:5432/vitals
       - DATABASE_SCHEMA=public
 
-  backend:
-    container_name: vitals-backend
+  ui:
+    container_name: vitals-ui
     platform: linux/arm64
     restart: on-failure:5
     build:
@@ -58,10 +63,9 @@ services:
       - ./yarn.lock:/app/yarn.lock
     command: yarn run ui:preview
     environment:
-      - PORT=21819
       - VITE_FORWARDER_URL=http://localhost:21819/api/zkp2p
       - ZKP2P_DOMAIN=https://api-prod-new.zkp2p.xyz
-      - VITE_INDEXER_URL=http://localhost:13072
+      - VITE_INDEXER_URL=http://localhost:21820
       - VITE_REOWN_PROJECT_ID=432892f2cbe2d54297f46d320a32892e
       - ZKP2P_API_KEY=${ZKP2P_API_KEY}
       - INTENT_GATING_PRIVATE_KEY=${INTENT_GATING_PRIVATE_KEY}
@@ -70,27 +74,22 @@ services:
     depends_on:
       - indexer
 
-  ui:
-    container_name: vitals-ui
+  landing:
+    container_name: vitals-landing
     platform: linux/arm64
     restart: on-failure:5
     build:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - 5173:5173
+      - 21822:5174
     volumes:
       - ./packages:/app/packages
       - ./package.json:/app/package.json
       - ./yarn.lock:/app/yarn.lock
-    command: yarn run ui:dev
+    command: yarn run landing:dev
     networks:
       - vitals
-    environment:
-      - VITE_SACRIFICE_INDEXER_URL=http://localhost:13073
-      - VITE_FORWARDER_URL=http://localhost:42069
-    depends_on:
-      - indexer
 
 networks:
   vitals:

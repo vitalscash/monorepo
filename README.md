@@ -2,6 +2,11 @@
 
 This monorepo contains the VitalsCash ecosystem including indexers, UIs, and utilities.
 
+## Prerequisites
+
+### Required Key File
+To access secret files such as UI and landing packages, you need a key file from the maintainers. Place it at `./key` in the root of the repository:
+
 ## Quick Start with Docker Compose
 
 The easiest way to run the entire stack is using Docker Compose:
@@ -17,10 +22,10 @@ docker compose up -d
 ```
 
 ### Access the applications
-- **Main Frontend**: http://localhost:3000
-- **Sacrifice UI**: http://localhost:3001
-- **Vitals Indexer**: http://localhost:13072
-- **Sacrifice Indexer**: http://localhost:13073
+- **Main UI**: http://localhost:21819
+- **Vitals Indexer**: http://localhost:21820
+- **PostgreSQL**: localhost:21821
+- **Landing Page**: http://localhost:21822
 
 ### Stop all services
 ```bash
@@ -33,23 +38,23 @@ docker compose down
 docker compose logs -f
 
 # Specific service
-docker compose logs -f sacrifice-ui
-docker compose logs -f frontend
+docker compose logs -f ui
+docker compose logs -f indexer
+docker compose logs -f postgres
+docker compose logs -f landing
 ```
 
 ## Services Overview
 
 ### UI Services
-- **frontend**: Main VitalsCash application UI
-- **sacrifice-ui**: Standalone sacrifice address generation UI
+- **ui**: Main VitalsCash application UI with backend/preview functionality (port 21819)
+- **landing**: Landing page application (port 21822)
 
 ### Indexer Services
-- **vitals-indexer**: Main blockchain indexer
-- **sacrifice-indexer**: Sacrifice-specific blockchain indexer
+- **indexer**: Main blockchain indexer (port 21820)
 
 ### Database Services
-- **vitals-indexer-postgres**: Database for main indexer
-- **sacrifice-indexer-postgres**: Database for sacrifice indexer
+- **postgres**: PostgreSQL database (port 21821)
 
 ## Development
 
@@ -57,6 +62,7 @@ docker compose logs -f frontend
 - Docker and Docker Compose
 - Node.js 18+
 - Yarn
+- Key file at `./key` (see Prerequisites section above)
 
 ### Local Development
 ```bash
@@ -64,10 +70,11 @@ docker compose logs -f frontend
 yarn install
 
 # Start specific services
-yarn sacrifice-ui:dev      # Run sacrifice UI locally
-yarn frontend:dev          # Run main frontend locally
-yarn sacrifice-indexer:dev # Run sacrifice indexer locally
-yarn indexer:dev           # Run main indexer locally
+yarn ui:dev              # Run main UI locally
+yarn landing:dev         # Run landing page locally
+yarn ui:preview          # Run UI preview mode
+yarn landing:preview     # Run landing page preview
+yarn indexer:dev         # Run main indexer locally
 ```
 
 ### Building
@@ -76,8 +83,9 @@ yarn indexer:dev           # Run main indexer locally
 yarn build
 
 # Build specific packages
-yarn workspace sacrifice-ui run build
-yarn workspace @vitals/ui run build
+yarn workspace ui run build
+yarn workspace landing run build
+yarn workspace indexer run build
 ```
 
 ## Architecture
@@ -85,23 +93,23 @@ yarn workspace @vitals/ui run build
 The monorepo is organized into packages:
 
 - **packages/ui**: Main VitalsCash frontend application
-- **packages/sacrifice-ui**: Standalone sacrifice UI with wallet integration
+- **packages/landing**: Landing page application
 - **packages/indexer**: Main blockchain indexer
-- **packages/sacrifice-indexer**: Sacrifice-specific blockchain indexer
-- **packages/eip712-utils**: EIP-712 signature utilities
+- **packages/extension-react**: React extension utilities
 - **packages/utils**: Shared utilities and types
+- **packages/scripts**: Build and utility scripts
 
 ## Environment Variables
 
-Key environment variables for the UIs:
+Key environment variables for the services:
 
-- `VITE_SACRIFICE_INDEXER_URL`: URL for the sacrifice indexer API
+- `VITE_FORWARDER_URL`: URL for the forwarder API
+- `VITE_INDEXER_URL`: URL for the indexer API
 - `PONDER_RPC_URL_8453`: Base network RPC URL
 - `PONDER_RPC_URL_369`: PulseChain RPC URL
-
-### CORS Configuration
-
-The sacrifice-indexer service includes CORS middleware to allow cross-origin requests from the sacrifice-ui frontend. The `ALLOWED_ORIGIN` environment variable controls which domains can access the API (defaults to `http://localhost:5173` for local development).
+- `ZKP2P_API_KEY`: API key for ZKP2P service
+- `INTENT_GATING_PRIVATE_KEY`: Private key for intent gating
+- `DATABASE_URL`: PostgreSQL connection string
 
 ## Contributing
 
