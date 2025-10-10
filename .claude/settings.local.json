@@ -1,0 +1,18 @@
+{
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(yarn workspace sacrifice-indexer run:*)",
+      "Bash(yarn install)",
+      "Bash(DATABASE_URL=postgres://sacrifice:password@localhost:42075/sacrifice yarn workspace sacrifice-indexer run test:api)",
+      "Bash(npx tsc:*)",
+      "Bash(yarn test:*)",
+      "Bash(yarn run test:*)",
+      "Bash(NODE_ENV=test node --test --import=tsx/esm src/test/batch-pricing.test.ts)"
+    ],
+    "deny": [],
+    "defaultMode": "acceptEdits"
+  }
+}

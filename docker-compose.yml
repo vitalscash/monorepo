@@ -1,0 +1,97 @@
+name: vitals
+
+services:
+  postgres:
+    container_name: vitals-postgres
+    image: postgres:16
+    platform: linux/arm64
+    shm_size: 16g
+    command: postgres -c 'max_connections=500' -c work_mem=256MB -c maintenance_work_mem=256MB -c max_wal_size=1GB
+    ports:
+      - 42070:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - vitals
+    environment:
+      - POSTGRES_DB=vitals
+      - POSTGRES_USER=vitals
+      - POSTGRES_PASSWORD=password
+
+  indexer:
+    container_name: vitals-indexer
+    platform: linux/arm64
+    restart: on-failure:5
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 13072:42069
+    volumes:
+      - ./packages:/app/packages
+      - ./package.json:/app/package.json
+      - ./yarn.lock:/app/yarn.lock
+    command: yarn run indexer:dev
+    networks:
+      - vitals
+    depends_on:
+      - postgres
+    environment:
+      - PORT=42069
+      - PONDER_RPC_URL_8453=${PONDER_RPC_URL_8453:-https://mainnet.base.org}
+      - PONDER_RPC_URL_369=${PONDER_RPC_URL_369:-https://rpc.pulsechain.com}
+      - DATABASE_URL=postgres://vitals:password@postgres:5432/vitals
+      - DATABASE_SCHEMA=public
+
+  backend:
+    container_name: vitals-backend
+    platform: linux/arm64
+    restart: on-failure:5
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 21819:4173
+    volumes:
+      - ./packages:/app/packages
+      - ./package.json:/app/package.json
+      - ./yarn.lock:/app/yarn.lock
+    command: yarn run ui:preview
+    environment:
+      - PORT=21819
+      - VITE_FORWARDER_URL=http://localhost:21819/api/zkp2p
+      - ZKP2P_DOMAIN=https://api-prod-new.zkp2p.xyz
+      - VITE_INDEXER_URL=http://localhost:13072
+      - VITE_REOWN_PROJECT_ID=432892f2cbe2d54297f46d320a32892e
+      - ZKP2P_API_KEY=${ZKP2P_API_KEY}
+      - INTENT_GATING_PRIVATE_KEY=${INTENT_GATING_PRIVATE_KEY}
+    networks:
+      - vitals
+    depends_on:
+      - indexer
+
+  ui:
+    container_name: vitals-ui
+    platform: linux/arm64
+    restart: on-failure:5
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+      - ./packages:/app/packages
+      - ./package.json:/app/package.json
+      - ./yarn.lock:/app/yarn.lock
+    command: yarn run ui:dev
+    networks:
+      - vitals
+    environment:
+      - VITE_SACRIFICE_INDEXER_URL=http://localhost:13073
+      - VITE_FORWARDER_URL=http://localhost:42069
+    depends_on:
+      - indexer
+
+networks:
+  vitals:
+    driver: bridge

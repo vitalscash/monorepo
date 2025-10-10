@@ -1,0 +1,2409 @@
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+scalar BigInt
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Meta {
+  status: JSON
+}
+
+type Query {
+  block(orderId: String!): block
+  blocks(where: blockFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): blockPage!
+  transaction(orderId: String!): transaction
+  transactions(where: transactionFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): transactionPage!
+  participant(participantId: String!): participant
+  participants(where: participantFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): participantPage!
+  action(orderId: String!): action
+  actions(where: actionFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): actionPage!
+  deposit(depositId: String!): deposit
+  deposits(where: depositFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositPage!
+  depositDelta(orderId: String!): depositDelta
+  depositDeltas(where: depositDeltaFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositDeltaPage!
+  depositConversionRateUpdated(depositConversionRateUpdatedId: String!): depositConversionRateUpdated
+  depositConversionRateUpdateds(where: depositConversionRateUpdatedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositConversionRateUpdatedPage!
+  depositReceived(depositId: String!): depositReceived
+  depositReceiveds(where: depositReceivedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositReceivedPage!
+  depositWithdrawn(orderId: String!): depositWithdrawn
+  depositWithdrawns(where: depositWithdrawnFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositWithdrawnPage!
+  depositClosed(depositId: String!): depositClosed
+  depositCloseds(where: depositClosedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositClosedPage!
+  depositCurrencyAdded(depositCurrencyAddedId: String!): depositCurrencyAdded
+  depositCurrencyAddeds(where: depositCurrencyAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositCurrencyAddedPage!
+  payeeDetails(payeeDetailsId: String!): payeeDetails
+  payeeDetailss(where: payeeDetailsFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): payeeDetailsPage!
+  depositVerifierAdded(depositVerifierAddedId: String!): depositVerifierAdded
+  depositVerifierAddeds(where: depositVerifierAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositVerifierAddedPage!
+  intentSignaled(intentHash: String!): intentSignaled
+  intentSignaleds(where: intentSignaledFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentSignaledPage!
+  intentPruned(orderId: String!): intentPruned
+  intentPruneds(where: intentPrunedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentPrunedPage!
+  intentFulfilled(orderId: String!): intentFulfilled
+  intentFulfilleds(where: intentFulfilledFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentFulfilledPage!
+  paymentVerifier(id: String!): paymentVerifier
+  paymentVerifiers(where: paymentVerifierFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): paymentVerifierPage!
+  paymentVerifierAdded(orderId: String!): paymentVerifierAdded
+  paymentVerifierAddeds(where: paymentVerifierAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): paymentVerifierAddedPage!
+  paymentVerifierFeeShareUpdated(orderId: String!): paymentVerifierFeeShareUpdated
+  paymentVerifierFeeShareUpdateds(where: paymentVerifierFeeShareUpdatedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): paymentVerifierFeeShareUpdatedPage!
+  paymentVerifierRemoved(orderId: String!): paymentVerifierRemoved
+  paymentVerifierRemoveds(where: paymentVerifierRemovedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): paymentVerifierRemovedPage!
+  stat(orderId: String!): stat
+  stats(where: statFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): statPage!
+  accumulatedStat(orderId: String!): accumulatedStat
+  accumulatedStats(where: accumulatedStatFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): accumulatedStatPage!
+  verifier(verifierId: String!): verifier
+  verifiers(where: verifierFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): verifierPage!
+  providerHashAdded(orderId: String!): providerHashAdded
+  providerHashAddeds(where: providerHashAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): providerHashAddedPage!
+  providerHashRemoved(orderId: String!): providerHashRemoved
+  providerHashRemoveds(where: providerHashRemovedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): providerHashRemovedPage!
+  providerHash(providerHashId: String!): providerHash
+  providerHashs(where: providerHashFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): providerHashPage!
+  _meta: Meta
+}
+
+type block {
+  orderId: String!
+  chainId: BigInt!
+  number: BigInt!
+  timestamp: BigInt!
+  hash: String!
+}
+
+type blockPage {
+  items: [block!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input blockFilter {
+  AND: [blockFilter]
+  OR: [blockFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  chainId: BigInt
+  chainId_not: BigInt
+  chainId_in: [BigInt]
+  chainId_not_in: [BigInt]
+  chainId_gt: BigInt
+  chainId_lt: BigInt
+  chainId_gte: BigInt
+  chainId_lte: BigInt
+  number: BigInt
+  number_not: BigInt
+  number_in: [BigInt]
+  number_not_in: [BigInt]
+  number_gt: BigInt
+  number_lt: BigInt
+  number_gte: BigInt
+  number_lte: BigInt
+  timestamp: BigInt
+  timestamp_not: BigInt
+  timestamp_in: [BigInt]
+  timestamp_not_in: [BigInt]
+  timestamp_gt: BigInt
+  timestamp_lt: BigInt
+  timestamp_gte: BigInt
+  timestamp_lte: BigInt
+  hash: String
+  hash_not: String
+  hash_in: [String]
+  hash_not_in: [String]
+  hash_contains: String
+  hash_not_contains: String
+  hash_starts_with: String
+  hash_ends_with: String
+  hash_not_starts_with: String
+  hash_not_ends_with: String
+}
+
+type transaction {
+  orderId: String!
+  blockId: String!
+  hash: String!
+  index: BigInt!
+  from: String!
+  to: String!
+  block: block
+  deposits(where: depositFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositPage
+  depositReceiveds(where: depositReceivedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositReceivedPage
+  depositWithdrawns(where: depositWithdrawnFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositWithdrawnPage
+  depositCloseds(where: depositClosedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositClosedPage
+  depositCurrencyAddeds(where: depositCurrencyAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositCurrencyAddedPage
+  depositConversionRateUpdateds(where: depositConversionRateUpdatedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositConversionRateUpdatedPage
+  intentSignaleds(where: intentSignaledFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentSignaledPage
+  intentPruneds(where: intentPrunedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentPrunedPage
+  intentFulfilleds(where: intentFulfilledFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentFulfilledPage
+  actions(where: actionFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): actionPage
+}
+
+type depositPage {
+  items: [deposit!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type deposit {
+  depositId: String!
+  orderId: String!
+  logId: String!
+  transactionId: String!
+  token: String!
+  chainId: BigInt!
+  participantId: String!
+  deposited: BigInt!
+  remaining: BigInt!
+  minAmount: BigInt!
+  maxAmount: BigInt!
+  depositConversionRateCurrencies: [String!]!
+  depositConversionRateVerifiers: [String!]!
+  status: status!
+  transaction: transaction
+  owner: participant
+  depositCurrencyAddeds(where: depositCurrencyAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositCurrencyAddedPage
+  depositVerifierAddeds(where: depositVerifierAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositVerifierAddedPage
+  depositConversionRateUpdateds(where: depositConversionRateUpdatedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositConversionRateUpdatedPage
+  actions(where: actionFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): actionPage
+  depositReceiveds(where: depositReceivedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositReceivedPage
+  depositWithdrawns(where: depositWithdrawnFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositWithdrawnPage
+  depositCloseds(where: depositClosedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositClosedPage
+  intentSignaleds(where: intentSignaledFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentSignaledPage
+  intentPruneds(where: intentPrunedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentPrunedPage
+  intentFulfilleds(where: intentFulfilledFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentFulfilledPage
+  depositDeltas(where: depositDeltaFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositDeltaPage
+  depositVerifiers(where: depositVerifierAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositVerifierAddedPage
+}
+
+enum status {
+  active
+  underfunded
+  closed
+  withdrawn
+}
+
+type participant {
+  participantId: String!
+  address: String!
+  chainId: BigInt!
+  deposits(where: depositFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositPage
+  depositReceived(where: depositReceivedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositReceivedPage
+  depositWithdrawn(where: depositWithdrawnFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositWithdrawnPage
+}
+
+input depositFilter {
+  AND: [depositFilter]
+  OR: [depositFilter]
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+  token: String
+  token_not: String
+  token_in: [String]
+  token_not_in: [String]
+  token_contains: String
+  token_not_contains: String
+  token_starts_with: String
+  token_ends_with: String
+  token_not_starts_with: String
+  token_not_ends_with: String
+  chainId: BigInt
+  chainId_not: BigInt
+  chainId_in: [BigInt]
+  chainId_not_in: [BigInt]
+  chainId_gt: BigInt
+  chainId_lt: BigInt
+  chainId_gte: BigInt
+  chainId_lte: BigInt
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  deposited: BigInt
+  deposited_not: BigInt
+  deposited_in: [BigInt]
+  deposited_not_in: [BigInt]
+  deposited_gt: BigInt
+  deposited_lt: BigInt
+  deposited_gte: BigInt
+  deposited_lte: BigInt
+  remaining: BigInt
+  remaining_not: BigInt
+  remaining_in: [BigInt]
+  remaining_not_in: [BigInt]
+  remaining_gt: BigInt
+  remaining_lt: BigInt
+  remaining_gte: BigInt
+  remaining_lte: BigInt
+  minAmount: BigInt
+  minAmount_not: BigInt
+  minAmount_in: [BigInt]
+  minAmount_not_in: [BigInt]
+  minAmount_gt: BigInt
+  minAmount_lt: BigInt
+  minAmount_gte: BigInt
+  minAmount_lte: BigInt
+  maxAmount: BigInt
+  maxAmount_not: BigInt
+  maxAmount_in: [BigInt]
+  maxAmount_not_in: [BigInt]
+  maxAmount_gt: BigInt
+  maxAmount_lt: BigInt
+  maxAmount_gte: BigInt
+  maxAmount_lte: BigInt
+  depositConversionRateCurrencies: [String]
+  depositConversionRateCurrencies_not: [String]
+  depositConversionRateCurrencies_has: String
+  depositConversionRateCurrencies_not_has: String
+  depositConversionRateVerifiers: [String]
+  depositConversionRateVerifiers_not: [String]
+  depositConversionRateVerifiers_has: String
+  depositConversionRateVerifiers_not_has: String
+  status: status
+  status_not: status
+  status_in: [status]
+  status_not_in: [status]
+}
+
+type depositReceivedPage {
+  items: [depositReceived!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type depositReceived {
+  depositId: String!
+  orderId: String!
+  logId: String!
+  token: String!
+  participantId: String!
+  amount: BigInt!
+  transactionId: String!
+  transaction: transaction
+  deposit: deposit
+  participant: participant
+  action: action
+  depositDelta: depositDelta
+}
+
+type action {
+  orderId: String!
+  logId: String!
+  participantId: String!
+  transactionId: String!
+  depositId: String!
+  participant: participant
+  transaction: transaction
+  deposit: deposit
+  depositReceiveds(where: depositReceivedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositReceivedPage
+  depositWithdrawns(where: depositWithdrawnFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositWithdrawnPage
+  depositCloseds(where: depositClosedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositClosedPage
+  depositCurrencyAddeds(where: depositCurrencyAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositCurrencyAddedPage
+  depositConversionRateUpdateds(where: depositConversionRateUpdatedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositConversionRateUpdatedPage
+  intentSignaleds(where: intentSignaledFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentSignaledPage
+  intentPruneds(where: intentPrunedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentPrunedPage
+  intentFulfilleds(where: intentFulfilledFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): intentFulfilledPage
+}
+
+input depositReceivedFilter {
+  AND: [depositReceivedFilter]
+  OR: [depositReceivedFilter]
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  token: String
+  token_not: String
+  token_in: [String]
+  token_not_in: [String]
+  token_contains: String
+  token_not_contains: String
+  token_starts_with: String
+  token_ends_with: String
+  token_not_starts_with: String
+  token_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  amount: BigInt
+  amount_not: BigInt
+  amount_in: [BigInt]
+  amount_not_in: [BigInt]
+  amount_gt: BigInt
+  amount_lt: BigInt
+  amount_gte: BigInt
+  amount_lte: BigInt
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type depositWithdrawnPage {
+  items: [depositWithdrawn!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type depositWithdrawn {
+  orderId: String!
+  logId: String!
+  depositId: String!
+  participantId: String!
+  amount: BigInt!
+  transactionId: String!
+  deposit: deposit
+  participant: participant
+  action: action
+  transaction: transaction
+  depositDelta: depositDelta
+}
+
+type depositDelta {
+  orderId: String!
+  logId: String!
+  depositId: String!
+  amountBefore: BigInt!
+  delta: BigInt!
+  amountAfter: BigInt!
+  deposit: deposit
+  action: action
+}
+
+input depositWithdrawnFilter {
+  AND: [depositWithdrawnFilter]
+  OR: [depositWithdrawnFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  amount: BigInt
+  amount_not: BigInt
+  amount_in: [BigInt]
+  amount_not_in: [BigInt]
+  amount_gt: BigInt
+  amount_lt: BigInt
+  amount_gte: BigInt
+  amount_lte: BigInt
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type depositClosedPage {
+  items: [depositClosed!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type depositClosed {
+  orderId: String!
+  logId: String!
+  depositId: String!
+  participantId: String!
+  transactionId: String!
+  participant: participant
+  deposit: deposit
+  transaction: transaction
+  action: action
+}
+
+input depositClosedFilter {
+  AND: [depositClosedFilter]
+  OR: [depositClosedFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type depositCurrencyAddedPage {
+  items: [depositCurrencyAdded!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type depositCurrencyAdded {
+  depositCurrencyAddedId: String!
+  orderId: String!
+  logId: String!
+  depositId: String!
+  verifier: String!
+  currency: String!
+  participantId: String!
+  depositVerifierAddedId: String!
+  currentDepositConversionRateUpdatedId: String!
+  transactionId: String!
+  deposit: deposit
+  transaction: transaction
+  depositVerifierAdded: depositVerifierAdded
+  currentDepositConversionRateUpdated: depositConversionRateUpdated
+  depositConversionRateUpdateds(where: depositConversionRateUpdatedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositConversionRateUpdatedPage
+  participant: participant
+  action: action
+}
+
+type depositVerifierAdded {
+  depositVerifierAddedId: String!
+  orderId: String!
+  logId: String!
+  depositId: String!
+  verifier: String!
+  transactionId: String!
+  participantId: String!
+  payeeDetailsHash: String!
+  intentGatingService: String!
+  deposit: deposit
+  participant: participant
+  transaction: transaction
+  depositCurrencyAdded(where: depositCurrencyAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositCurrencyAddedPage
+  depositConversionRateUpdated(where: depositConversionRateUpdatedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): depositConversionRateUpdatedPage
+  payeeDetails: payeeDetails
+}
+
+input depositCurrencyAddedFilter {
+  AND: [depositCurrencyAddedFilter]
+  OR: [depositCurrencyAddedFilter]
+  depositCurrencyAddedId: String
+  depositCurrencyAddedId_not: String
+  depositCurrencyAddedId_in: [String]
+  depositCurrencyAddedId_not_in: [String]
+  depositCurrencyAddedId_contains: String
+  depositCurrencyAddedId_not_contains: String
+  depositCurrencyAddedId_starts_with: String
+  depositCurrencyAddedId_ends_with: String
+  depositCurrencyAddedId_not_starts_with: String
+  depositCurrencyAddedId_not_ends_with: String
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  currency: String
+  currency_not: String
+  currency_in: [String]
+  currency_not_in: [String]
+  currency_contains: String
+  currency_not_contains: String
+  currency_starts_with: String
+  currency_ends_with: String
+  currency_not_starts_with: String
+  currency_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  depositVerifierAddedId: String
+  depositVerifierAddedId_not: String
+  depositVerifierAddedId_in: [String]
+  depositVerifierAddedId_not_in: [String]
+  depositVerifierAddedId_contains: String
+  depositVerifierAddedId_not_contains: String
+  depositVerifierAddedId_starts_with: String
+  depositVerifierAddedId_ends_with: String
+  depositVerifierAddedId_not_starts_with: String
+  depositVerifierAddedId_not_ends_with: String
+  currentDepositConversionRateUpdatedId: String
+  currentDepositConversionRateUpdatedId_not: String
+  currentDepositConversionRateUpdatedId_in: [String]
+  currentDepositConversionRateUpdatedId_not_in: [String]
+  currentDepositConversionRateUpdatedId_contains: String
+  currentDepositConversionRateUpdatedId_not_contains: String
+  currentDepositConversionRateUpdatedId_starts_with: String
+  currentDepositConversionRateUpdatedId_ends_with: String
+  currentDepositConversionRateUpdatedId_not_starts_with: String
+  currentDepositConversionRateUpdatedId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type depositConversionRateUpdatedPage {
+  items: [depositConversionRateUpdated!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type depositConversionRateUpdated {
+  depositConversionRateUpdatedId: String!
+  orderId: String!
+  logId: String!
+  transactionId: String!
+  depositVerifierAddedId: String!
+  depositCurrencyAddedId: String!
+  currency: String!
+  verifier: String!
+  depositId: String!
+  changeId: Int!
+  value: BigInt!
+  active: Boolean!
+  deposit: deposit
+  depositVerifierAdded: depositVerifierAdded
+  depositCurrencyAdded: depositCurrencyAdded
+  transaction: transaction
+  action: action
+}
+
+input depositConversionRateUpdatedFilter {
+  AND: [depositConversionRateUpdatedFilter]
+  OR: [depositConversionRateUpdatedFilter]
+  depositConversionRateUpdatedId: String
+  depositConversionRateUpdatedId_not: String
+  depositConversionRateUpdatedId_in: [String]
+  depositConversionRateUpdatedId_not_in: [String]
+  depositConversionRateUpdatedId_contains: String
+  depositConversionRateUpdatedId_not_contains: String
+  depositConversionRateUpdatedId_starts_with: String
+  depositConversionRateUpdatedId_ends_with: String
+  depositConversionRateUpdatedId_not_starts_with: String
+  depositConversionRateUpdatedId_not_ends_with: String
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+  depositVerifierAddedId: String
+  depositVerifierAddedId_not: String
+  depositVerifierAddedId_in: [String]
+  depositVerifierAddedId_not_in: [String]
+  depositVerifierAddedId_contains: String
+  depositVerifierAddedId_not_contains: String
+  depositVerifierAddedId_starts_with: String
+  depositVerifierAddedId_ends_with: String
+  depositVerifierAddedId_not_starts_with: String
+  depositVerifierAddedId_not_ends_with: String
+  depositCurrencyAddedId: String
+  depositCurrencyAddedId_not: String
+  depositCurrencyAddedId_in: [String]
+  depositCurrencyAddedId_not_in: [String]
+  depositCurrencyAddedId_contains: String
+  depositCurrencyAddedId_not_contains: String
+  depositCurrencyAddedId_starts_with: String
+  depositCurrencyAddedId_ends_with: String
+  depositCurrencyAddedId_not_starts_with: String
+  depositCurrencyAddedId_not_ends_with: String
+  currency: String
+  currency_not: String
+  currency_in: [String]
+  currency_not_in: [String]
+  currency_contains: String
+  currency_not_contains: String
+  currency_starts_with: String
+  currency_ends_with: String
+  currency_not_starts_with: String
+  currency_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  changeId: Int
+  changeId_not: Int
+  changeId_in: [Int]
+  changeId_not_in: [Int]
+  changeId_gt: Int
+  changeId_lt: Int
+  changeId_gte: Int
+  changeId_lte: Int
+  value: BigInt
+  value_not: BigInt
+  value_in: [BigInt]
+  value_not_in: [BigInt]
+  value_gt: BigInt
+  value_lt: BigInt
+  value_gte: BigInt
+  value_lte: BigInt
+  active: Boolean
+  active_not: Boolean
+  active_in: [Boolean]
+  active_not_in: [Boolean]
+}
+
+type payeeDetails {
+  payeeDetailsId: String!
+  intentGatingService: String!
+  payeeDetails: String!
+  data: String!
+}
+
+type intentSignaledPage {
+  items: [intentSignaled!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type intentSignaled {
+  intentHash: String!
+  orderId: String!
+  depositId: String!
+  verifier: String!
+  owner: String!
+  to: String!
+  amount: BigInt!
+  currency: String!
+  depositVerifierAddedId: String!
+  depositCurrencyAddedId: String!
+  depositConversionRateUpdatedId: String!
+  transactionId: String!
+  logId: String!
+  participantId: String!
+  transaction: transaction
+  deposit: deposit
+  depositVerifierAdded: depositVerifierAdded
+  depositCurrencyAdded: depositCurrencyAdded
+  depositConversionRateUpdated: depositConversionRateUpdated
+  action: action
+  participant: participant
+}
+
+input intentSignaledFilter {
+  AND: [intentSignaledFilter]
+  OR: [intentSignaledFilter]
+  intentHash: String
+  intentHash_not: String
+  intentHash_in: [String]
+  intentHash_not_in: [String]
+  intentHash_contains: String
+  intentHash_not_contains: String
+  intentHash_starts_with: String
+  intentHash_ends_with: String
+  intentHash_not_starts_with: String
+  intentHash_not_ends_with: String
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  owner: String
+  owner_not: String
+  owner_in: [String]
+  owner_not_in: [String]
+  owner_contains: String
+  owner_not_contains: String
+  owner_starts_with: String
+  owner_ends_with: String
+  owner_not_starts_with: String
+  owner_not_ends_with: String
+  to: String
+  to_not: String
+  to_in: [String]
+  to_not_in: [String]
+  to_contains: String
+  to_not_contains: String
+  to_starts_with: String
+  to_ends_with: String
+  to_not_starts_with: String
+  to_not_ends_with: String
+  amount: BigInt
+  amount_not: BigInt
+  amount_in: [BigInt]
+  amount_not_in: [BigInt]
+  amount_gt: BigInt
+  amount_lt: BigInt
+  amount_gte: BigInt
+  amount_lte: BigInt
+  currency: String
+  currency_not: String
+  currency_in: [String]
+  currency_not_in: [String]
+  currency_contains: String
+  currency_not_contains: String
+  currency_starts_with: String
+  currency_ends_with: String
+  currency_not_starts_with: String
+  currency_not_ends_with: String
+  depositVerifierAddedId: String
+  depositVerifierAddedId_not: String
+  depositVerifierAddedId_in: [String]
+  depositVerifierAddedId_not_in: [String]
+  depositVerifierAddedId_contains: String
+  depositVerifierAddedId_not_contains: String
+  depositVerifierAddedId_starts_with: String
+  depositVerifierAddedId_ends_with: String
+  depositVerifierAddedId_not_starts_with: String
+  depositVerifierAddedId_not_ends_with: String
+  depositCurrencyAddedId: String
+  depositCurrencyAddedId_not: String
+  depositCurrencyAddedId_in: [String]
+  depositCurrencyAddedId_not_in: [String]
+  depositCurrencyAddedId_contains: String
+  depositCurrencyAddedId_not_contains: String
+  depositCurrencyAddedId_starts_with: String
+  depositCurrencyAddedId_ends_with: String
+  depositCurrencyAddedId_not_starts_with: String
+  depositCurrencyAddedId_not_ends_with: String
+  depositConversionRateUpdatedId: String
+  depositConversionRateUpdatedId_not: String
+  depositConversionRateUpdatedId_in: [String]
+  depositConversionRateUpdatedId_not_in: [String]
+  depositConversionRateUpdatedId_contains: String
+  depositConversionRateUpdatedId_not_contains: String
+  depositConversionRateUpdatedId_starts_with: String
+  depositConversionRateUpdatedId_ends_with: String
+  depositConversionRateUpdatedId_not_starts_with: String
+  depositConversionRateUpdatedId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+}
+
+type intentPrunedPage {
+  items: [intentPruned!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type intentPruned {
+  orderId: String!
+  logId: String!
+  intentHash: String!
+  depositId: String!
+  transactionId: String!
+  participantId: String!
+  transaction: transaction
+  deposit: deposit
+  action: action
+  participant: participant
+}
+
+input intentPrunedFilter {
+  AND: [intentPrunedFilter]
+  OR: [intentPrunedFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  intentHash: String
+  intentHash_not: String
+  intentHash_in: [String]
+  intentHash_not_in: [String]
+  intentHash_contains: String
+  intentHash_not_contains: String
+  intentHash_starts_with: String
+  intentHash_ends_with: String
+  intentHash_not_starts_with: String
+  intentHash_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+}
+
+type intentFulfilledPage {
+  items: [intentFulfilled!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type intentFulfilled {
+  orderId: String!
+  intentHash: String!
+  depositId: String!
+  verifier: String!
+  currency: String!
+  ownerId: String!
+  to: String!
+  amount: BigInt!
+  sustainabilityFee: BigInt!
+  verifierFee: BigInt!
+  transactionId: String!
+  participantId: String!
+  logId: String!
+  depositVerifierAddedId: String!
+  depositCurrencyAddedId: String!
+  depositConversionRateUpdatedId: String!
+  transaction: transaction
+  deposit: deposit
+  action: action
+  participant: participant
+  owner: participant
+  depositCurrencyAdded: depositCurrencyAdded
+  depositVerifierAdded: depositVerifierAdded
+  depositConversionRateUpdated: depositConversionRateUpdated
+  depositDelta: depositDelta
+}
+
+input intentFulfilledFilter {
+  AND: [intentFulfilledFilter]
+  OR: [intentFulfilledFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  intentHash: String
+  intentHash_not: String
+  intentHash_in: [String]
+  intentHash_not_in: [String]
+  intentHash_contains: String
+  intentHash_not_contains: String
+  intentHash_starts_with: String
+  intentHash_ends_with: String
+  intentHash_not_starts_with: String
+  intentHash_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  currency: String
+  currency_not: String
+  currency_in: [String]
+  currency_not_in: [String]
+  currency_contains: String
+  currency_not_contains: String
+  currency_starts_with: String
+  currency_ends_with: String
+  currency_not_starts_with: String
+  currency_not_ends_with: String
+  ownerId: String
+  ownerId_not: String
+  ownerId_in: [String]
+  ownerId_not_in: [String]
+  ownerId_contains: String
+  ownerId_not_contains: String
+  ownerId_starts_with: String
+  ownerId_ends_with: String
+  ownerId_not_starts_with: String
+  ownerId_not_ends_with: String
+  to: String
+  to_not: String
+  to_in: [String]
+  to_not_in: [String]
+  to_contains: String
+  to_not_contains: String
+  to_starts_with: String
+  to_ends_with: String
+  to_not_starts_with: String
+  to_not_ends_with: String
+  amount: BigInt
+  amount_not: BigInt
+  amount_in: [BigInt]
+  amount_not_in: [BigInt]
+  amount_gt: BigInt
+  amount_lt: BigInt
+  amount_gte: BigInt
+  amount_lte: BigInt
+  sustainabilityFee: BigInt
+  sustainabilityFee_not: BigInt
+  sustainabilityFee_in: [BigInt]
+  sustainabilityFee_not_in: [BigInt]
+  sustainabilityFee_gt: BigInt
+  sustainabilityFee_lt: BigInt
+  sustainabilityFee_gte: BigInt
+  sustainabilityFee_lte: BigInt
+  verifierFee: BigInt
+  verifierFee_not: BigInt
+  verifierFee_in: [BigInt]
+  verifierFee_not_in: [BigInt]
+  verifierFee_gt: BigInt
+  verifierFee_lt: BigInt
+  verifierFee_gte: BigInt
+  verifierFee_lte: BigInt
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  depositVerifierAddedId: String
+  depositVerifierAddedId_not: String
+  depositVerifierAddedId_in: [String]
+  depositVerifierAddedId_not_in: [String]
+  depositVerifierAddedId_contains: String
+  depositVerifierAddedId_not_contains: String
+  depositVerifierAddedId_starts_with: String
+  depositVerifierAddedId_ends_with: String
+  depositVerifierAddedId_not_starts_with: String
+  depositVerifierAddedId_not_ends_with: String
+  depositCurrencyAddedId: String
+  depositCurrencyAddedId_not: String
+  depositCurrencyAddedId_in: [String]
+  depositCurrencyAddedId_not_in: [String]
+  depositCurrencyAddedId_contains: String
+  depositCurrencyAddedId_not_contains: String
+  depositCurrencyAddedId_starts_with: String
+  depositCurrencyAddedId_ends_with: String
+  depositCurrencyAddedId_not_starts_with: String
+  depositCurrencyAddedId_not_ends_with: String
+  depositConversionRateUpdatedId: String
+  depositConversionRateUpdatedId_not: String
+  depositConversionRateUpdatedId_in: [String]
+  depositConversionRateUpdatedId_not_in: [String]
+  depositConversionRateUpdatedId_contains: String
+  depositConversionRateUpdatedId_not_contains: String
+  depositConversionRateUpdatedId_starts_with: String
+  depositConversionRateUpdatedId_ends_with: String
+  depositConversionRateUpdatedId_not_starts_with: String
+  depositConversionRateUpdatedId_not_ends_with: String
+}
+
+type depositVerifierAddedPage {
+  items: [depositVerifierAdded!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input depositVerifierAddedFilter {
+  AND: [depositVerifierAddedFilter]
+  OR: [depositVerifierAddedFilter]
+  depositVerifierAddedId: String
+  depositVerifierAddedId_not: String
+  depositVerifierAddedId_in: [String]
+  depositVerifierAddedId_not_in: [String]
+  depositVerifierAddedId_contains: String
+  depositVerifierAddedId_not_contains: String
+  depositVerifierAddedId_starts_with: String
+  depositVerifierAddedId_ends_with: String
+  depositVerifierAddedId_not_starts_with: String
+  depositVerifierAddedId_not_ends_with: String
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  payeeDetailsHash: String
+  payeeDetailsHash_not: String
+  payeeDetailsHash_in: [String]
+  payeeDetailsHash_not_in: [String]
+  payeeDetailsHash_contains: String
+  payeeDetailsHash_not_contains: String
+  payeeDetailsHash_starts_with: String
+  payeeDetailsHash_ends_with: String
+  payeeDetailsHash_not_starts_with: String
+  payeeDetailsHash_not_ends_with: String
+  intentGatingService: String
+  intentGatingService_not: String
+  intentGatingService_in: [String]
+  intentGatingService_not_in: [String]
+  intentGatingService_contains: String
+  intentGatingService_not_contains: String
+  intentGatingService_starts_with: String
+  intentGatingService_ends_with: String
+  intentGatingService_not_starts_with: String
+  intentGatingService_not_ends_with: String
+}
+
+type actionPage {
+  items: [action!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input actionFilter {
+  AND: [actionFilter]
+  OR: [actionFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+}
+
+type depositDeltaPage {
+  items: [depositDelta!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input depositDeltaFilter {
+  AND: [depositDeltaFilter]
+  OR: [depositDeltaFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  logId: String
+  logId_not: String
+  logId_in: [String]
+  logId_not_in: [String]
+  logId_contains: String
+  logId_not_contains: String
+  logId_starts_with: String
+  logId_ends_with: String
+  logId_not_starts_with: String
+  logId_not_ends_with: String
+  depositId: String
+  depositId_not: String
+  depositId_in: [String]
+  depositId_not_in: [String]
+  depositId_contains: String
+  depositId_not_contains: String
+  depositId_starts_with: String
+  depositId_ends_with: String
+  depositId_not_starts_with: String
+  depositId_not_ends_with: String
+  amountBefore: BigInt
+  amountBefore_not: BigInt
+  amountBefore_in: [BigInt]
+  amountBefore_not_in: [BigInt]
+  amountBefore_gt: BigInt
+  amountBefore_lt: BigInt
+  amountBefore_gte: BigInt
+  amountBefore_lte: BigInt
+  delta: BigInt
+  delta_not: BigInt
+  delta_in: [BigInt]
+  delta_not_in: [BigInt]
+  delta_gt: BigInt
+  delta_lt: BigInt
+  delta_gte: BigInt
+  delta_lte: BigInt
+  amountAfter: BigInt
+  amountAfter_not: BigInt
+  amountAfter_in: [BigInt]
+  amountAfter_not_in: [BigInt]
+  amountAfter_gt: BigInt
+  amountAfter_lt: BigInt
+  amountAfter_gte: BigInt
+  amountAfter_lte: BigInt
+}
+
+type transactionPage {
+  items: [transaction!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input transactionFilter {
+  AND: [transactionFilter]
+  OR: [transactionFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  blockId: String
+  blockId_not: String
+  blockId_in: [String]
+  blockId_not_in: [String]
+  blockId_contains: String
+  blockId_not_contains: String
+  blockId_starts_with: String
+  blockId_ends_with: String
+  blockId_not_starts_with: String
+  blockId_not_ends_with: String
+  hash: String
+  hash_not: String
+  hash_in: [String]
+  hash_not_in: [String]
+  hash_contains: String
+  hash_not_contains: String
+  hash_starts_with: String
+  hash_ends_with: String
+  hash_not_starts_with: String
+  hash_not_ends_with: String
+  index: BigInt
+  index_not: BigInt
+  index_in: [BigInt]
+  index_not_in: [BigInt]
+  index_gt: BigInt
+  index_lt: BigInt
+  index_gte: BigInt
+  index_lte: BigInt
+  from: String
+  from_not: String
+  from_in: [String]
+  from_not_in: [String]
+  from_contains: String
+  from_not_contains: String
+  from_starts_with: String
+  from_ends_with: String
+  from_not_starts_with: String
+  from_not_ends_with: String
+  to: String
+  to_not: String
+  to_in: [String]
+  to_not_in: [String]
+  to_contains: String
+  to_not_contains: String
+  to_starts_with: String
+  to_ends_with: String
+  to_not_starts_with: String
+  to_not_ends_with: String
+}
+
+type participantPage {
+  items: [participant!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input participantFilter {
+  AND: [participantFilter]
+  OR: [participantFilter]
+  participantId: String
+  participantId_not: String
+  participantId_in: [String]
+  participantId_not_in: [String]
+  participantId_contains: String
+  participantId_not_contains: String
+  participantId_starts_with: String
+  participantId_ends_with: String
+  participantId_not_starts_with: String
+  participantId_not_ends_with: String
+  address: String
+  address_not: String
+  address_in: [String]
+  address_not_in: [String]
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_ends_with: String
+  address_not_starts_with: String
+  address_not_ends_with: String
+  chainId: BigInt
+  chainId_not: BigInt
+  chainId_in: [BigInt]
+  chainId_not_in: [BigInt]
+  chainId_gt: BigInt
+  chainId_lt: BigInt
+  chainId_gte: BigInt
+  chainId_lte: BigInt
+}
+
+type payeeDetailsPage {
+  items: [payeeDetails!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input payeeDetailsFilter {
+  AND: [payeeDetailsFilter]
+  OR: [payeeDetailsFilter]
+  payeeDetailsId: String
+  payeeDetailsId_not: String
+  payeeDetailsId_in: [String]
+  payeeDetailsId_not_in: [String]
+  payeeDetailsId_contains: String
+  payeeDetailsId_not_contains: String
+  payeeDetailsId_starts_with: String
+  payeeDetailsId_ends_with: String
+  payeeDetailsId_not_starts_with: String
+  payeeDetailsId_not_ends_with: String
+  intentGatingService: String
+  intentGatingService_not: String
+  intentGatingService_in: [String]
+  intentGatingService_not_in: [String]
+  intentGatingService_contains: String
+  intentGatingService_not_contains: String
+  intentGatingService_starts_with: String
+  intentGatingService_ends_with: String
+  intentGatingService_not_starts_with: String
+  intentGatingService_not_ends_with: String
+  payeeDetails: String
+  payeeDetails_not: String
+  payeeDetails_in: [String]
+  payeeDetails_not_in: [String]
+  payeeDetails_contains: String
+  payeeDetails_not_contains: String
+  payeeDetails_starts_with: String
+  payeeDetails_ends_with: String
+  payeeDetails_not_starts_with: String
+  payeeDetails_not_ends_with: String
+  data: String
+  data_not: String
+  data_in: [String]
+  data_not_in: [String]
+  data_contains: String
+  data_not_contains: String
+  data_starts_with: String
+  data_ends_with: String
+  data_not_starts_with: String
+  data_not_ends_with: String
+}
+
+type paymentVerifier {
+  id: String!
+  verifier: String!
+  feeShare: BigInt!
+  active: Boolean!
+}
+
+type paymentVerifierPage {
+  items: [paymentVerifier!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input paymentVerifierFilter {
+  AND: [paymentVerifierFilter]
+  OR: [paymentVerifierFilter]
+  id: String
+  id_not: String
+  id_in: [String]
+  id_not_in: [String]
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_ends_with: String
+  id_not_starts_with: String
+  id_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  feeShare: BigInt
+  feeShare_not: BigInt
+  feeShare_in: [BigInt]
+  feeShare_not_in: [BigInt]
+  feeShare_gt: BigInt
+  feeShare_lt: BigInt
+  feeShare_gte: BigInt
+  feeShare_lte: BigInt
+  active: Boolean
+  active_not: Boolean
+  active_in: [Boolean]
+  active_not_in: [Boolean]
+}
+
+type paymentVerifierAdded {
+  orderId: String!
+  verifier: String!
+  verifierId: String!
+  feeShare: BigInt!
+  transactionId: String!
+  transaction: transaction
+  paymentVerifier: paymentVerifier
+}
+
+type paymentVerifierAddedPage {
+  items: [paymentVerifierAdded!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input paymentVerifierAddedFilter {
+  AND: [paymentVerifierAddedFilter]
+  OR: [paymentVerifierAddedFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  verifierId: String
+  verifierId_not: String
+  verifierId_in: [String]
+  verifierId_not_in: [String]
+  verifierId_contains: String
+  verifierId_not_contains: String
+  verifierId_starts_with: String
+  verifierId_ends_with: String
+  verifierId_not_starts_with: String
+  verifierId_not_ends_with: String
+  feeShare: BigInt
+  feeShare_not: BigInt
+  feeShare_in: [BigInt]
+  feeShare_not_in: [BigInt]
+  feeShare_gt: BigInt
+  feeShare_lt: BigInt
+  feeShare_gte: BigInt
+  feeShare_lte: BigInt
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type paymentVerifierFeeShareUpdated {
+  orderId: String!
+  verifier: paymentVerifier
+  verifierId: String!
+  feeShare: BigInt!
+  transactionId: String!
+  transaction: transaction
+}
+
+type paymentVerifierFeeShareUpdatedPage {
+  items: [paymentVerifierFeeShareUpdated!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input paymentVerifierFeeShareUpdatedFilter {
+  AND: [paymentVerifierFeeShareUpdatedFilter]
+  OR: [paymentVerifierFeeShareUpdatedFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  verifierId: String
+  verifierId_not: String
+  verifierId_in: [String]
+  verifierId_not_in: [String]
+  verifierId_contains: String
+  verifierId_not_contains: String
+  verifierId_starts_with: String
+  verifierId_ends_with: String
+  verifierId_not_starts_with: String
+  verifierId_not_ends_with: String
+  feeShare: BigInt
+  feeShare_not: BigInt
+  feeShare_in: [BigInt]
+  feeShare_not_in: [BigInt]
+  feeShare_gt: BigInt
+  feeShare_lt: BigInt
+  feeShare_gte: BigInt
+  feeShare_lte: BigInt
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type paymentVerifierRemoved {
+  orderId: String!
+  verifier: paymentVerifier
+  verifierId: String!
+  transactionId: String!
+  transaction: transaction
+}
+
+type paymentVerifierRemovedPage {
+  items: [paymentVerifierRemoved!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input paymentVerifierRemovedFilter {
+  AND: [paymentVerifierRemovedFilter]
+  OR: [paymentVerifierRemovedFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  verifierId: String
+  verifierId_not: String
+  verifierId_in: [String]
+  verifierId_not_in: [String]
+  verifierId_contains: String
+  verifierId_not_contains: String
+  verifierId_starts_with: String
+  verifierId_ends_with: String
+  verifierId_not_starts_with: String
+  verifierId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type stat {
+  orderId: String!
+  type: String!
+  action: String!
+  amount: BigInt!
+  currency: String
+  token: String!
+  verifier: String!
+  chainId: BigInt!
+  timestamp: BigInt!
+}
+
+type statPage {
+  items: [stat!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input statFilter {
+  AND: [statFilter]
+  OR: [statFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  type: String
+  type_not: String
+  type_in: [String]
+  type_not_in: [String]
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_ends_with: String
+  type_not_starts_with: String
+  type_not_ends_with: String
+  action: String
+  action_not: String
+  action_in: [String]
+  action_not_in: [String]
+  action_contains: String
+  action_not_contains: String
+  action_starts_with: String
+  action_ends_with: String
+  action_not_starts_with: String
+  action_not_ends_with: String
+  amount: BigInt
+  amount_not: BigInt
+  amount_in: [BigInt]
+  amount_not_in: [BigInt]
+  amount_gt: BigInt
+  amount_lt: BigInt
+  amount_gte: BigInt
+  amount_lte: BigInt
+  currency: String
+  currency_not: String
+  currency_in: [String]
+  currency_not_in: [String]
+  currency_contains: String
+  currency_not_contains: String
+  currency_starts_with: String
+  currency_ends_with: String
+  currency_not_starts_with: String
+  currency_not_ends_with: String
+  token: String
+  token_not: String
+  token_in: [String]
+  token_not_in: [String]
+  token_contains: String
+  token_not_contains: String
+  token_starts_with: String
+  token_ends_with: String
+  token_not_starts_with: String
+  token_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  chainId: BigInt
+  chainId_not: BigInt
+  chainId_in: [BigInt]
+  chainId_not_in: [BigInt]
+  chainId_gt: BigInt
+  chainId_lt: BigInt
+  chainId_gte: BigInt
+  chainId_lte: BigInt
+  timestamp: BigInt
+  timestamp_not: BigInt
+  timestamp_in: [BigInt]
+  timestamp_not_in: [BigInt]
+  timestamp_gt: BigInt
+  timestamp_lt: BigInt
+  timestamp_gte: BigInt
+  timestamp_lte: BigInt
+}
+
+type accumulatedStat {
+  orderId: String!
+  type: String!
+  action: String!
+  amount: BigInt!
+  currency: String
+  token: String!
+  verifier: String!
+  chainId: BigInt!
+  timestamp: BigInt!
+}
+
+type accumulatedStatPage {
+  items: [accumulatedStat!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input accumulatedStatFilter {
+  AND: [accumulatedStatFilter]
+  OR: [accumulatedStatFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  type: String
+  type_not: String
+  type_in: [String]
+  type_not_in: [String]
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_ends_with: String
+  type_not_starts_with: String
+  type_not_ends_with: String
+  action: String
+  action_not: String
+  action_in: [String]
+  action_not_in: [String]
+  action_contains: String
+  action_not_contains: String
+  action_starts_with: String
+  action_ends_with: String
+  action_not_starts_with: String
+  action_not_ends_with: String
+  amount: BigInt
+  amount_not: BigInt
+  amount_in: [BigInt]
+  amount_not_in: [BigInt]
+  amount_gt: BigInt
+  amount_lt: BigInt
+  amount_gte: BigInt
+  amount_lte: BigInt
+  currency: String
+  currency_not: String
+  currency_in: [String]
+  currency_not_in: [String]
+  currency_contains: String
+  currency_not_contains: String
+  currency_starts_with: String
+  currency_ends_with: String
+  currency_not_starts_with: String
+  currency_not_ends_with: String
+  token: String
+  token_not: String
+  token_in: [String]
+  token_not_in: [String]
+  token_contains: String
+  token_not_contains: String
+  token_starts_with: String
+  token_ends_with: String
+  token_not_starts_with: String
+  token_not_ends_with: String
+  verifier: String
+  verifier_not: String
+  verifier_in: [String]
+  verifier_not_in: [String]
+  verifier_contains: String
+  verifier_not_contains: String
+  verifier_starts_with: String
+  verifier_ends_with: String
+  verifier_not_starts_with: String
+  verifier_not_ends_with: String
+  chainId: BigInt
+  chainId_not: BigInt
+  chainId_in: [BigInt]
+  chainId_not_in: [BigInt]
+  chainId_gt: BigInt
+  chainId_lt: BigInt
+  chainId_gte: BigInt
+  chainId_lte: BigInt
+  timestamp: BigInt
+  timestamp_not: BigInt
+  timestamp_in: [BigInt]
+  timestamp_not_in: [BigInt]
+  timestamp_gt: BigInt
+  timestamp_lt: BigInt
+  timestamp_gte: BigInt
+  timestamp_lte: BigInt
+}
+
+type verifier {
+  verifierId: String!
+  address: String!
+  chainId: BigInt!
+  providerHashAdded(where: providerHashAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): providerHashAddedPage
+  providerHashRemoved(where: providerHashRemovedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): providerHashRemovedPage
+}
+
+type providerHashAddedPage {
+  items: [providerHashAdded!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type providerHashAdded {
+  orderId: String!
+  verifierId: String!
+  providerHashId: String!
+  transactionId: String!
+  verifier: verifier
+  providerHash: providerHash
+}
+
+type providerHash {
+  providerHashId: String!
+  providerHash: String!
+  active: Boolean!
+  providerHashAdded(where: providerHashAddedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): providerHashAddedPage
+  providerHashRemoved(where: providerHashRemovedFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): providerHashRemovedPage
+}
+
+input providerHashAddedFilter {
+  AND: [providerHashAddedFilter]
+  OR: [providerHashAddedFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  verifierId: String
+  verifierId_not: String
+  verifierId_in: [String]
+  verifierId_not_in: [String]
+  verifierId_contains: String
+  verifierId_not_contains: String
+  verifierId_starts_with: String
+  verifierId_ends_with: String
+  verifierId_not_starts_with: String
+  verifierId_not_ends_with: String
+  providerHashId: String
+  providerHashId_not: String
+  providerHashId_in: [String]
+  providerHashId_not_in: [String]
+  providerHashId_contains: String
+  providerHashId_not_contains: String
+  providerHashId_starts_with: String
+  providerHashId_ends_with: String
+  providerHashId_not_starts_with: String
+  providerHashId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type providerHashRemovedPage {
+  items: [providerHashRemoved!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type providerHashRemoved {
+  orderId: String!
+  verifierId: String!
+  providerHashId: String!
+  transactionId: String!
+  verifier: verifier
+  providerHash: providerHash
+}
+
+input providerHashRemovedFilter {
+  AND: [providerHashRemovedFilter]
+  OR: [providerHashRemovedFilter]
+  orderId: String
+  orderId_not: String
+  orderId_in: [String]
+  orderId_not_in: [String]
+  orderId_contains: String
+  orderId_not_contains: String
+  orderId_starts_with: String
+  orderId_ends_with: String
+  orderId_not_starts_with: String
+  orderId_not_ends_with: String
+  verifierId: String
+  verifierId_not: String
+  verifierId_in: [String]
+  verifierId_not_in: [String]
+  verifierId_contains: String
+  verifierId_not_contains: String
+  verifierId_starts_with: String
+  verifierId_ends_with: String
+  verifierId_not_starts_with: String
+  verifierId_not_ends_with: String
+  providerHashId: String
+  providerHashId_not: String
+  providerHashId_in: [String]
+  providerHashId_not_in: [String]
+  providerHashId_contains: String
+  providerHashId_not_contains: String
+  providerHashId_starts_with: String
+  providerHashId_ends_with: String
+  providerHashId_not_starts_with: String
+  providerHashId_not_ends_with: String
+  transactionId: String
+  transactionId_not: String
+  transactionId_in: [String]
+  transactionId_not_in: [String]
+  transactionId_contains: String
+  transactionId_not_contains: String
+  transactionId_starts_with: String
+  transactionId_ends_with: String
+  transactionId_not_starts_with: String
+  transactionId_not_ends_with: String
+}
+
+type verifierPage {
+  items: [verifier!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input verifierFilter {
+  AND: [verifierFilter]
+  OR: [verifierFilter]
+  verifierId: String
+  verifierId_not: String
+  verifierId_in: [String]
+  verifierId_not_in: [String]
+  verifierId_contains: String
+  verifierId_not_contains: String
+  verifierId_starts_with: String
+  verifierId_ends_with: String
+  verifierId_not_starts_with: String
+  verifierId_not_ends_with: String
+  address: String
+  address_not: String
+  address_in: [String]
+  address_not_in: [String]
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_ends_with: String
+  address_not_starts_with: String
+  address_not_ends_with: String
+  chainId: BigInt
+  chainId_not: BigInt
+  chainId_in: [BigInt]
+  chainId_not_in: [BigInt]
+  chainId_gt: BigInt
+  chainId_lt: BigInt
+  chainId_gte: BigInt
+  chainId_lte: BigInt
+}
+
+type providerHashPage {
+  items: [providerHash!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input providerHashFilter {
+  AND: [providerHashFilter]
+  OR: [providerHashFilter]
+  providerHashId: String
+  providerHashId_not: String
+  providerHashId_in: [String]
+  providerHashId_not_in: [String]
+  providerHashId_contains: String
+  providerHashId_not_contains: String
+  providerHashId_starts_with: String
+  providerHashId_ends_with: String
+  providerHashId_not_starts_with: String
+  providerHashId_not_ends_with: String
+  providerHash: String
+  providerHash_not: String
+  providerHash_in: [String]
+  providerHash_not_in: [String]
+  providerHash_contains: String
+  providerHash_not_contains: String
+  providerHash_starts_with: String
+  providerHash_ends_with: String
+  providerHash_not_starts_with: String
+  providerHash_not_ends_with: String
+  active: Boolean
+  active_not: Boolean
+  active_in: [Boolean]
+  active_not_in: [Boolean]
+}

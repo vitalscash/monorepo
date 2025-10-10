@@ -1,0 +1,47 @@
+{
+  "name": "monorepo",
+  "version": "1.0.14",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build": "yarn run pkgs:build && yarn workspace indexer run codegen && yarn workspace landing run build && yarn workspace ui run build",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "version": "node scripts/sync-versions.js",
+    "clean": "rm -rf node_modules && rm -rf packages/*/node_modules && rm -rf packages/*/dist",
+    "indexer:dev": "yarn workspace indexer run dev",
+    "indexer:start": "yarn workspace indexer run start",
+    "indexer:db:start": "docker compose -f docker-compose.yml up -d",
+    "indexer:db:stop": "docker compose -f docker-compose.yml down",
+    "start": "yarn workspace indexer run start -- -- --host",
+    "landing:preview": "yarn workspace landing run preview --host",
+    "landing:dev": "yarn workspace landing run dev",
+    "ui:preview": "yarn workspace ui run preview -- --host",
+    "ui:dev": "yarn workspace ui run dev",
+    "pkgs:build": "yarn workspace @vitals/utils run build && yarn workspace @vitals/extension-react run build",
+    "ui:codegen": "yarn workspace ui run codegen",
+    "ui:lint": "yarn workspace ui run lint",
+    "ui:test": "yarn workspace ui run test",
+    "build:analyze": "ANALYZE=true yarn workspace landing run build && ANALYZE=true yarn workspace ui run build",
+    "ui:test:run": "yarn workspace ui run test:run"
+  },
+  "keywords": [],
+  "workspaces": [
+    "packages/utils",
+    "packages/extension-react",
+    "packages/indexer",
+    "packages/scripts",
+    "packages/landing",
+    "packages/ui"
+  ],
+  "resolutions": {
+    "esbuild": "0.25.0",
+    "@noble/hashes": "1.8.0",
+    "@noble/curves": "1.9.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}

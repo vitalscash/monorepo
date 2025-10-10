@@ -1,0 +1,77 @@
+name: Release Latest
+
+on:
+  push:
+    branches:
+      - staging
+      - master
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: '22.12.x'
+      - name: Install dependencies
+        run: yarn
+      - name: Build project
+        run: yarn run build
+        env:
+          PUBLIC_NODE_ENV: 'production'
+          PUBLIC_IMAGE_ROOT: 'https://gib.show'
+          PUBLIC_WALLET_CONNECT_ID: '432892f2cbe2d54297f46d320a32892e'
+          NODE_ENV: 'production'
+          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}'
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'ui-dist-${{github.sha}}'
+          overwrite: true
+          path: packages/ui/dist/
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'extension-react-dist-${{github.sha}}'
+          overwrite: true
+          path: packages/extension-react/dist/
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'utils-dist-${{github.sha}}'
+          overwrite: true
+          path: packages/utils/dist/
+  publish-npm:
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: '22.12.x'
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: 'utils-dist-${{github.sha}}'
+          path: packages/utils/dist/
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: 'extension-react-dist-${{github.sha}}'
+          path: packages/extension-react/dist/
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          package: packages/utils
+          token: ${{ secrets.NPM_TOKEN }}
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          package: packages/extension-react
+          token: ${{ secrets.NPM_TOKEN }}

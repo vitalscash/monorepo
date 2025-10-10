@@ -1,0 +1,25 @@
+{
+  "name": "@vitals/extension-react",
+  "version": "1.0.14",
+  "main": "index.js",
+  "type": "module",
+  "access": "public",
+  "exports": {
+    ".": "./src/index.ts",
+    "./useZKTLS": "./src/useZKTLS.ts",
+    "./ZKTLSContext": "./src/ZKTLSContext.tsx"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@vitals/utils": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

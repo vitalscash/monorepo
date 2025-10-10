@@ -1,0 +1,41 @@
+{
+  "name": "@vitals/utils",
+  "version": "1.0.14",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "type": "module",
+  "access": "public",
+  "exports": {
+    ".": "./dist/src/index.js",
+    "./contracts": "./dist/src/contracts.js",
+    "./currencies": "./dist/src/currencies.js",
+    "./units": "./dist/src/units.js",
+    "./payment": "./dist/src/payment.js",
+    "./sort": "./dist/src/sort.js",
+    "./time": "./dist/src/time.js",
+    "./tokens": "./dist/src/tokens.js",
+    "./intent": "./dist/src/intent.js",
+    "./conversionRates": "./dist/src/conversionRates.js",
+    "./json": "./dist/src/json.js",
+    "./profit": "./dist/src/profit.js",
+    "./chain": "./dist/src/chain.js",
+    "./participants": "./dist/src/participants.js",
+    "./input": "./dist/src/input.js",
+    "./stats": "./dist/src/stats.js",
+    "./ids": "./dist/src/ids.js",
+    "./events": "./dist/src/events.js",
+    "./zkp2p-types": "./dist/src/zkp2p-types.js",
+    "./deposit": "./dist/src/deposit.js"
+  },
+  "scripts": {
+    "build": "tsx scripts/convert-svg && tsc && cp -r src/data dist/src/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}
