@@ -46,7 +46,8 @@ ARG NODE_ENV
 ARG VITE_SACRIFICE_URL
 ARG RAILWAY_GIT_COMMIT_SHA
 
-# Install dependencies
+# Enable Corepack and install dependencies
+RUN corepack enable
 RUN yarn
 RUN yarn run build
 
