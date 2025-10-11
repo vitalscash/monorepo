@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 # Use Node.js 22 as the base image
 FROM node:lts
 
@@ -61,6 +60,6 @@ ARG RAILWAY_GIT_COMMIT_SHA
 RUN corepack enable
 RUN yarn install
 
-RUN yarn run ci:build
+RUN yarn run build
 
 CMD ["yarn", "run", "indexer:start"]
