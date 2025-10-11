@@ -21,7 +21,6 @@ WORKDIR /app
 
 # Copy repository files
 COPY .gitattributes ./
-COPY key ./key
 COPY package.json ./
 COPY yarn.lock ./
 COPY .yarnrc.yml ./
