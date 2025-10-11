@@ -36,12 +36,8 @@ RUN git init && \
 
 # Decrypt files using git-crypt if key is provided
 ARG GIT_CRYPT_KEY
-RUN --mount=type=secret,id=git_crypt_key,target=/tmp/git_crypt_key \
-    if [ -f "/tmp/git_crypt_key" ]; then \
-      echo "Secret key provided, overriding local key file" && \
-      cp /tmp/git_crypt_key ./key; \
-    elif [ ! -z "${GIT_CRYPT_KEY+x}" ]; then \
-      echo "Environment key provided, overriding local key file" && \
+RUN if [ ! -z "${GIT_CRYPT_KEY+x}" ]; then \
+      echo "Environment key provided, decoding to key file" && \
       echo "$GIT_CRYPT_KEY" | base64 -d > ./key 2>/dev/null; \
     fi && \
     if [ -f "./key" ]; then \
