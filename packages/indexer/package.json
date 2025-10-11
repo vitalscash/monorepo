@@ -16,7 +16,7 @@
     "@vitals/utils": "^1.0.11",
     "hono": "^4.5.0",
     "ponder": "^0.12.0",
-    "viem": "^2.21.3"
+    "viem": "^2.38.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

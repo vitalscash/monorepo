@@ -18,23 +18,37 @@ RUN apt-get update && \
 # Set working directory
 WORKDIR /app
 
-# Copy git files and repository structure
-COPY .git ./.git
+# Copy repository files
 COPY .gitattributes ./
-COPY package*.json ./
+COPY key ./key
+COPY package.json ./
 COPY yarn.lock ./
 COPY packages ./packages
 
+# Initialize git repository for git-crypt
+RUN git init && \
+    git config --global user.email "docker@build.local" && \
+    git config --global user.name "Docker Build" && \
+    git add . && \
+    git commit -m "Initial commit for git-crypt"
+
 # Decrypt files using git-crypt if key is provided
 ARG GIT_CRYPT_KEY
-RUN if [ -n "$GIT_CRYPT_KEY" ]; then \
-      echo "$GIT_CRYPT_KEY" | base64 -d > ./key && \
-      git config --global user.email "docker@build.local" && \
-      git config --global user.name "Docker Build" && \
-      git add . && \
-      git commit -m "Docker build state" || true && \
+RUN --mount=type=secret,id=git_crypt_key,target=/tmp/git_crypt_key \
+    if [ -f "/tmp/git_crypt_key" ]; then \
+      echo "Secret key provided, overriding local key file" && \
+      cp /tmp/git_crypt_key ./key; \
+    elif [ ! -z "${GIT_CRYPT_KEY+x}" ]; then \
+      echo "Environment key provided, overriding local key file" && \
+      echo "$GIT_CRYPT_KEY" | base64 -d > ./key 2>/dev/null; \
+    fi && \
+    if [ -f "./key" ]; then \
+      echo "Unlocking git-crypt..." && \
       git-crypt unlock ./key && \
-      rm ./key; \
+      rm ./key && \
+      echo "Git-crypt unlock successful"; \
+    else \
+      echo "No key file found, skipping git-crypt unlock"; \
     fi
 
 ARG ZKP2P_DOMAIN
@@ -48,7 +62,8 @@ ARG RAILWAY_GIT_COMMIT_SHA
 
 # Enable Corepack and install dependencies
 RUN corepack enable
-RUN yarn
+RUN yarn install
+
 RUN yarn run build
 
 CMD ["yarn", "run", "indexer:start"]
