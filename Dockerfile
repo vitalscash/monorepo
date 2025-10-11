@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # Use Node.js 22 as the base image
 FROM node:lts
 
