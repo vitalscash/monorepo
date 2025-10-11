@@ -7,16 +7,11 @@ const ZKTLSContext = createContext<ZKTLSContextType | undefined>(undefined)
 
 interface ZKTLSProviderProps {
   children: ReactNode
-  fallbackComponent?: ReactNode
 }
 
-export function ZKTLSProvider({ children, fallbackComponent }: ZKTLSProviderProps) {
+export function ZKTLSProvider({ children }: ZKTLSProviderProps) {
   const zktlsHook = useZKTLS()
 
-  // Show loading state until ZKTLS is initialized
-  if (!zktlsHook.isInitialized && fallbackComponent !== undefined) {
-    return fallbackComponent
-  }
   return (
     <ZKTLSContext.Provider value={zktlsHook}>
       {children}

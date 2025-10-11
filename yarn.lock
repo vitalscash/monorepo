@@ -3836,6 +3836,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react@npm:^19.2.2":
+  version: 19.2.2
+  resolution: "@types/react@npm:19.2.2"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/f830b1204aca4634ce3c6cb3477b5d3d066b80a4dd832a4ee0069acb504b6debd2416548a43a11c1407c12bc60e2dc6cf362934a18fe75fe06a69c0a98cba8ab
+  languageName: node
+  linkType: hard
+
 "@types/send@npm:*":
   version: 0.17.5
   resolution: "@types/send@npm:0.17.5"
@@ -4021,11 +4030,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@vitals/extension-react@workspace:packages/extension-react"
   dependencies:
+    "@types/react": "npm:^19.2.2"
     "@vitals/utils": "npm:^1.0.0"
+    react: "npm:^18.2.0"
     tsx: "npm:^4.20.3"
     typescript: "npm:^5.9.2"
-  peerDependencies:
-    react: ^18.2.0
+    viem: "npm:^2.38.0"
   languageName: unknown
   linkType: soft
 
@@ -9163,6 +9173,7 @@ __metadata:
     "@types/react-dom": "npm:^18.2.19"
     "@vitals/utils": "npm:^1.0.0"
     "@vitejs/plugin-react-swc": "npm:^3.9.0"
+    "@wagmi/connectors": "npm:^5.7.11"
     autoprefixer: "npm:^10.4.17"
     canonicalize: "npm:^2.1.0"
     eslint: "npm:^9.25.0"

@@ -23,6 +23,7 @@ COPY .gitattributes ./
 COPY key ./key
 COPY package.json ./
 COPY yarn.lock ./
+COPY .yarnrc.yml ./
 COPY packages ./packages
 
 # Initialize git repository for git-crypt
