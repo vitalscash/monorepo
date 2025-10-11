@@ -61,6 +61,6 @@ ARG RAILWAY_GIT_COMMIT_SHA
 RUN corepack enable
 RUN yarn install
 
-RUN yarn run build
+RUN yarn run ci:build
 
 CMD ["yarn", "run", "indexer:start"]
