@@ -2,7 +2,7 @@
   "name": "indexer",
   "private": true,
   "type": "module",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "scripts": {
     "dev": "ponder dev --log-format pretty",
     "start": "ponder start --schema $RAILWAY_DEPLOYMENT_ID",

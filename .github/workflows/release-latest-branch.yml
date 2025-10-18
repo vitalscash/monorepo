@@ -59,6 +59,8 @@ jobs:
         with:
           cache: yarn
           node-version: '22.12.x'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
