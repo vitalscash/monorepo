@@ -36,11 +36,11 @@ export const baseContracts = {
   cashappReclaimVerifier: [getAddress('0x76D33A33068D86016B806dF02376dDBb23Dd3703')],
   wiseReclaimVerifier: [getAddress('0xFF0149799631D7A5bdE2e7eA9b306c42b3d9a9ca')],
   mercadopagoReclaimVerifier: [
-    getAddress('0x00d003c73eab8feaec04bab976235915fe7641e3'),
+    // getAddress('0x00d003c73eab8feaec04bab976235915fe7641e3'),
     getAddress('0xf2AC5be14F32Cbe6A613CFF8931d95460D6c33A3'),
   ],
   zelleBaseVerifier: [
-    getAddress('0x1783f040783c0827fb64d128ece548d9b3613ad5'),
+    // getAddress('0x1783f040783c0827fb64d128ece548d9b3613ad5'),
     getAddress('0x431a078A5029146aAB239c768A615CD484519aF7'),
   ],
   zelleChaseReclaimVerifier: [getAddress('0xBcD7C6BBcA5869fBefe3E322263EE1090221D7A9')],
