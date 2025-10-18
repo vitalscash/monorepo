@@ -1,6 +1,6 @@
 {
   "name": "@vitals/extension-react",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "index.js",
   "type": "module",
   "access": "public",
@@ -13,13 +13,17 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@vitals/utils": "^1.0.0"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0"
+    "@vitals/utils": "^1.0.0",
+    "react": "^18.2.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "viem": "^2.38.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/react": "^19.2.2"
+  }
 }

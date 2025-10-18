@@ -1,6 +1,6 @@
 {
   "name": "@vitals/utils",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "type": "module",
@@ -34,8 +34,12 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "devDependencies": {
+  "dependencies": {
     "tsx": "^4.20.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "viem": "^2.38.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
   }
 }

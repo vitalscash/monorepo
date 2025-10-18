@@ -43,7 +43,7 @@ const logStat = async (context: Context, { timestamp, type, action, amount, curr
   // }
   // accumulatedAmount += amount
   const chainId = BigInt(context.chain.id)
-  console.log('truncatedTimestamp %o', new Date(Number(truncatedTimestamp * 1000n)).toISOString())
+  // console.log('truncatedTimestamp %o', new Date(Number(truncatedTimestamp * 1000n)).toISOString())
   const insertStat = context.db.insert(schema.stat).values({
     orderId: oId,
     amount,

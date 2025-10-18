@@ -1,14 +1,6 @@
 import { base, pulsechain, type Chain } from 'viem/chains'
 
-pulsechain.blockExplorers = {
-  default: {
-    name: 'PulseScan',
-    url: 'https://ipfs.scan.pulsechain.com' as unknown as 'https://scan.pulsechain.com',
-    apiUrl: 'https://api.scan.pulsechain.com/api',
-  },
-} as const
-
-export const chains = [pulsechain, base] as const
+export const chains = [pulsechain, base] as [Chain, ...Chain[]]
 
 export const chainIds = chains.map((chain) => chain.id)
 

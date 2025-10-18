@@ -1,10 +1,11 @@
 {
   "name": "monorepo",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "index.js",
   "private": true,
   "scripts": {
-    "build": "yarn run pkgs:build && yarn workspace indexer run codegen && yarn workspace landing run build && yarn workspace ui run build",
+    "build": "yarn run ci:build && yarn workspace landing run build && yarn workspace ui run build",
+    "ci:build": "yarn run pkgs:build && yarn workspace indexer run codegen",
     "docker:build": "docker compose build",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
@@ -36,6 +37,7 @@
     "packages/ui"
   ],
   "resolutions": {
+    "viem": "2.38.0",
     "esbuild": "0.25.0",
     "@noble/hashes": "1.8.0",
     "@noble/curves": "1.9.2"
@@ -43,5 +45,5 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@4.10.3"
 }
