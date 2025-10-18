@@ -1,6 +1,6 @@
 {
   "name": "@vitals/scripts",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "type": "module",
