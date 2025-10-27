@@ -13,7 +13,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@vitals/utils": "^1.0.0",
+    "@vitals/utils": "^1.0.16",
     "react": "^18.2.0",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2",

@@ -30,7 +30,7 @@ services:
     restart: on-failure:5
     build:
       context: ./
-      dockerfile: Dockerfile.indexer
+      dockerfile: Dockerfile
     ports:
       - 21820:42069
     volumes:
@@ -47,51 +47,6 @@ services:
       - PONDER_RPC_URL_369=${PONDER_RPC_URL_369:-https://rpc.pulsechain.com}
       - DATABASE_URL=postgres://vitals:password@postgres:5432/vitals
       - DATABASE_SCHEMA=public
-
-  ui:
-    container_name: vitals-ui
-    platform: linux/arm64
-    restart: on-failure:5
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - 21819:4173
-    volumes:
-      - ./key:/app/key
-      - ./packages:/app/packages
-      - ./package.json:/app/package.json
-      - ./yarn.lock:/app/yarn.lock
-    command: yarn run ui:preview
-    environment:
-      - VITE_FORWARDER_URL=http://localhost:21819/api/zkp2p
-      - ZKP2P_DOMAIN=https://api-prod-new.zkp2p.xyz
-      - VITE_INDEXER_URL=http://localhost:21820
-      - VITE_REOWN_PROJECT_ID=432892f2cbe2d54297f46d320a32892e
-      - GIT_CRYPT_KEY=${GIT_CRYPT_KEY}
-      - ZKP2P_API_KEY=${ZKP2P_API_KEY}
-      - INTENT_GATING_PRIVATE_KEY=${INTENT_GATING_PRIVATE_KEY}
-    networks:
-      - vitals
-    depends_on:
-      - indexer
-
-  landing:
-    container_name: vitals-landing
-    platform: linux/arm64
-    restart: on-failure:5
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - 21822:5174
-    volumes:
-      - ./packages:/app/packages
-      - ./package.json:/app/package.json
-      - ./yarn.lock:/app/yarn.lock
-    command: yarn run landing:dev
-    networks:
-      - vitals
 
 networks:
   vitals:

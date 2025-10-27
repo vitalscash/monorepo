@@ -13,7 +13,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@vitals/utils": "^1.0.11",
+    "@vitals/utils": "^1.0.16",
     "hono": "^4.5.0",
     "ponder": "^0.12.0",
     "viem": "^2.38.0"

@@ -4,7 +4,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "build": "yarn run ci:build && yarn workspace landing run build && yarn workspace ui run build",
+    "build": "yarn run ci:build",
     "ci:build": "yarn run pkgs:build && yarn workspace indexer run codegen",
     "docker:build": "docker compose build",
     "docker:up": "docker compose up -d",
@@ -16,25 +16,14 @@
     "indexer:db:start": "docker compose -f docker-compose.yml up -d",
     "indexer:db:stop": "docker compose -f docker-compose.yml down",
     "start": "yarn workspace indexer run start -- -- --host",
-    "landing:preview": "yarn workspace landing run preview --host",
-    "landing:dev": "yarn workspace landing run dev",
-    "ui:preview": "yarn workspace ui run preview -- --host",
-    "ui:dev": "yarn workspace ui run dev",
-    "pkgs:build": "yarn workspace @vitals/utils run build && yarn workspace @vitals/extension-react run build",
-    "ui:codegen": "yarn workspace ui run codegen",
-    "ui:lint": "yarn workspace ui run lint",
-    "ui:test": "yarn workspace ui run test",
-    "build:analyze": "ANALYZE=true yarn workspace landing run build && ANALYZE=true yarn workspace ui run build",
-    "ui:test:run": "yarn workspace ui run test:run"
+    "pkgs:build": "yarn workspace @vitals/utils run build && yarn workspace @vitals/extension-react run build"
   },
   "keywords": [],
   "workspaces": [
     "packages/utils",
     "packages/extension-react",
     "packages/indexer",
-    "packages/scripts",
-    "packages/landing",
-    "packages/ui"
+    "packages/scripts"
   ],
   "resolutions": {
     "viem": "2.38.0",

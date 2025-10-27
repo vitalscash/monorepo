@@ -9,8 +9,6 @@ import { Verifiers } from "./abis/Verifiers";
 const baseContracts = getContracts(base.id)!
 const pulsechainContracts = getContracts(pulsechain.id)!
 
-console.log('dburl=%o', process.env.DATABASE_URL)
-
 const addressesByChain = (contracts: Contracts) => {
   return [
     ...contracts!.venmoReclaimVerifier,
